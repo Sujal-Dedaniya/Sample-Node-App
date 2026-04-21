@@ -1,0 +1,21 @@
+{
+  "name": "ecs-blue-green-app",
+  "version": "2.0.0",
+  "description": "Node.js Express app for AWS ECS Blue-Green Deployment demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "aws",
+    "ecs",
+    "blue-green"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

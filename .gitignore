@@ -1,0 +1,49 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# Build output
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# npm cache
+.npm
+
+# Optional: lock file (usually you SHOULD commit this)
+# package-lock.json
+
+# Debug files
+*.pid
+*.seed
+*.pid.lock
