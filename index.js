@@ -2,8 +2,8 @@ const express = require('express');
 const os = require('os');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const VERSION = '2.0.0';
-const COLOR = 'green';
+const VERSION = '3.0.0';
+const COLOR = 'Purple';
 
 app.get('/', (req, res) => {
   res.send(`<!DOCTYPE html>
@@ -11,23 +11,23 @@ app.get('/', (req, res) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>App v${VERSION} — Green</title>
+  <title>App v${VERSION} — Purple</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green-deep:   #052e1b;
-      --green-mid:    #064e3b;
-      --green-accent: #16a34a;
-      --green-glow:   #22c55e;
-      --green-soft:   #86efac;
-      --text:         #e2e8f0;
-      --muted:        #64748b;
+      --purple-deep:   #1a0533;
+      --purple-mid:    #2e0b5e;
+      --purple-accent: #7c3aed;
+      --purple-glow:   #a855f7;
+      --purple-soft:   #d8b4fe;
+      --text:          #e2e8f0;
+      --muted:         #64748b;
     }
 
     body {
-      background: var(--green-deep);
+      background: var(--purple-deep);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
@@ -44,8 +44,8 @@ app.get('/', (req, res) => {
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(34,197,94,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(34,197,94,0.07) 1px, transparent 1px);
+        linear-gradient(rgba(168,85,247,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.07) 1px, transparent 1px);
       background-size: 40px 40px;
       animation: gridShift 20s linear infinite;
       pointer-events: none;
@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
       position: fixed;
       width: 500px; height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(34,197,94,0.25) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%);
       top: -100px; left: -100px;
       animation: orbFloat 8s ease-in-out infinite;
       pointer-events: none;
@@ -74,15 +74,15 @@ app.get('/', (req, res) => {
     .card {
       position: relative;
       z-index: 1;
-      background: rgba(6, 78, 59, 0.6);
-      border: 1px solid rgba(34, 197, 94, 0.25);
+      background: rgba(46, 11, 94, 0.6);
+      border: 1px solid rgba(168, 85, 247, 0.25);
       border-radius: 20px;
       padding: 48px 56px;
       max-width: 560px;
       width: 90%;
       backdrop-filter: blur(20px);
       box-shadow:
-        0 0 0 1px rgba(34,197,94,0.1),
+        0 0 0 1px rgba(168,85,247,0.1),
         0 25px 60px rgba(0,0,0,0.5),
         inset 0 1px 0 rgba(255,255,255,0.06);
       animation: fadeUp 0.7s ease both;
@@ -97,23 +97,23 @@ app.get('/', (req, res) => {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(34,197,94,0.15);
-      border: 1px solid rgba(34,197,94,0.35);
+      background: rgba(168,85,247,0.15);
+      border: 1px solid rgba(168,85,247,0.35);
       border-radius: 999px;
       padding: 6px 16px;
       font-family: 'Space Mono', monospace;
       font-size: 11px;
       letter-spacing: 2px;
-      color: var(--green-soft);
+      color: var(--purple-soft);
       text-transform: uppercase;
       margin-bottom: 28px;
     }
 
     .badge .dot {
       width: 7px; height: 7px;
-      background: var(--green-glow);
+      background: var(--purple-glow);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--green-glow);
+      box-shadow: 0 0 8px var(--purple-glow);
       animation: pulse 2s ease-in-out infinite;
     }
 
@@ -131,7 +131,7 @@ app.get('/', (req, res) => {
       margin-bottom: 10px;
     }
 
-    h1 span { color: var(--green-glow); }
+    h1 span { color: var(--purple-glow); }
 
     .subtitle {
       color: var(--muted);
@@ -166,7 +166,7 @@ app.get('/', (req, res) => {
     .meta-value {
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--green-soft);
+      color: var(--purple-soft);
       word-break: break-all;
     }
 
@@ -174,20 +174,20 @@ app.get('/', (req, res) => {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(34,197,94,0.08);
-      border: 1px solid rgba(34,197,94,0.2);
+      background: rgba(168,85,247,0.08);
+      border: 1px solid rgba(168,85,247,0.2);
       border-radius: 10px;
       padding: 12px 16px;
       font-family: 'Space Mono', monospace;
       font-size: 12px;
-      color: var(--green-soft);
+      color: var(--purple-soft);
     }
 
     .status-bar .indicator {
       width: 8px; height: 8px;
-      background: #22c55e;
+      background: #a855f7;
       border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
+      box-shadow: 0 0 8px #a855f7;
       flex-shrink: 0;
     }
   </style>
@@ -195,9 +195,9 @@ app.get('/', (req, res) => {
 <body>
   <div class="orb"></div>
   <div class="card">
-    <div class="badge"><span class="dot"></span> Green Deployment · ECS</div>
+    <div class="badge"><span class="dot"></span> Purple Deployment · ECS</div>
     <h1>App <span>v${VERSION}</span></h1>
-    <p class="subtitle">Second release — running on AWS ECS with blue/green deployment</p>
+    <p class="subtitle">Third release — running on AWS ECS with blue/green deployment</p>
 
     <div class="meta-grid">
       <div class="meta-item">
@@ -206,7 +206,7 @@ app.get('/', (req, res) => {
       </div>
       <div class="meta-item">
         <div class="meta-label">Environment</div>
-        <div class="meta-value">Green (Active)</div>
+        <div class="meta-value">Purple (Active)</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Hostname</div>
@@ -239,5 +239,5 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🟢 App v${VERSION} (${COLOR}) running on port ${PORT}`);
+  console.log(`🟣 App v${VERSION} (${COLOR}) running on port ${PORT}`);
 });
