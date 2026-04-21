@@ -1,0 +1,64 @@
+name: Deploy to Amazon ECS
+
+on:
+    workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+  
+env:
+    AWS_REGION: ap-south-1
+
+    # Dev
+    ECR_REPOSITORY: demo-ecr
+    ECS_SERVICE: demo
+    ECS_CLUSTER: demo
+    CONTAINER_NAME: demo
+    ECS_TASK_DEFINITION: .aws/TaskDefination.json
+
+jobs:
+    deploy-Dev:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4.1.7
+
+            - name: Configure AWS Credentials (OIDC)
+              uses: aws-actions/configure-aws-credentials@v4.0.2
+              with:
+                  role-to-assume: arn:aws:iam::607081650648:role/OidcForEcs
+                  aws-region: ${{ env.AWS_REGION }}
+
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v2.0.1
+
+            - name: Build, tag, and push image to Amazon ECR
+              id: build-image
+              env:
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  IMAGE_TAG: ${{ github.run_number }}
+              run: |
+                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_DEV:$IMAGE_TAG .
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY_DEV:$IMAGE_TAG
+                  echo "image=$ECR_REGISTRY/$ECR_REPOSITORY_DEV:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+            - name: Fill in the new image ID in the Amazon ECS task definition
+              id: task-def
+              uses: aws-actions/amazon-ecs-render-task-definition@v1.5.1
+              with:
+                  task-definition: ${{ env.ECS_TASK_DEFINITION }}
+                  container-name: ${{ env.CONTAINER_NAME }}
+                  image: ${{ steps.build-image.outputs.image }}
+
+            - name: Deploy Amazon ECS task definition
+              uses: aws-actions/amazon-ecs-deploy-task-definition@v2.1.0
+              with:
+                  task-definition: ${{ steps.task-def.outputs.task-definition }}
+                  service: ${{ env.ECS_SERVICE }}
+                  cluster: ${{ env.ECS_CLUSTER }}
+
+          
