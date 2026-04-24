@@ -9,25 +9,34 @@ jobs:
 
     permissions:
       contents: read
-      security-events: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
       - name: Build Docker image
-        run: docker build -t demo .
+        run: docker build -t demo:latest .
 
-      - name: Run Trivy scan
+      # Download HTML template
+      - name: Download Trivy HTML template
+        run: |
+          curl -sSL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o html.tpl
+
+      # Run Trivy scan in HTML format
+      - name: Run Trivy scan (HTML)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'demo:latest'
-          format: 'sarif'
-          output: 'trivy-report.sarif'
+          format: 'template'
+          template: '@html.tpl'
+          output: 'trivy-report.html'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
+          scanners: 'vuln'
 
-      - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
+      # Upload HTML report as artifact
+      - name: Upload Trivy Report
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: trivy-report.sarif
+          name: trivy-html-report
+          path: trivy-report.html
